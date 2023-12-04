@@ -1,6 +1,7 @@
 package umc.spring.domain;
 import lombok.*;
 import umc.spring.domain.common.BaseEntity;
+import umc.spring.domain.enums.MissionStatus;
 import umc.spring.domain.enums.UserStatus;
 import umc.spring.domain.mapping.UserMission;
 
@@ -32,7 +33,7 @@ public class Mission extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
-    private UserStatus status;
+    private MissionStatus status;
 
     private LocalDate deadline;
 

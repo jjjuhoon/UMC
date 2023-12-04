@@ -23,4 +23,13 @@ public class MemberMissionConverter {
         return UserMission.builder()
                 .build();
     }
+
+
+    public static MemberResponseDTO.CompletMissionDTO toCompleteMissionDTO(UserMission userMission){
+        return MemberResponseDTO.CompletMissionDTO.builder()
+                .userMissionId(userMission.getId())
+                .status(userMission.getStatus())
+                .updatedAt(LocalDateTime.now())
+                .build();
+    }
 }

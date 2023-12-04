@@ -66,4 +66,21 @@ public class MemberCommandServiceImpl implements MemberCommandService{
 
     }
 
+    @Override
+    @Transactional
+    public UserMission completMission(Long userId, Long missionId){
+        User user=memberRepository.findById(userId)
+                .orElseThrow(()->new RuntimeException("\""+userId+"\"해당 유저가 없습니다"));
+
+
+        Mission mission=missionRepository.findById(missionId)
+                .orElseThrow(()->new RuntimeException("\""+missionId+"\"해당 유저가 없습니다"));
+
+        List<UserMission> userMissions = userMissionRepository.findDistinctByUserIdAndMissionId(userId, missionId);
+        if (!userMissions.isEmpty()) {
+            UserMission userMission = userMissions.get(0);
+            return userMissionRepository.save(userMission);}
+        else
+            throw new RuntimeException("유저 미션을 찾을 수 없습니다.");
+    }
 }
