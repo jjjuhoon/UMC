@@ -4,6 +4,7 @@ import umc.spring.domain.common.BaseEntity;
 import umc.spring.domain.enums.UserStatus;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -18,8 +19,8 @@ public class Review extends BaseEntity {
     private Long id;
 
     @Column(nullable = false, columnDefinition = "DECIMAL(2,1) CHECK (rate >= 0.0 AND rate <= 5.0)")
-    //0.0~5.0 사이에 float값 뽑아줌.
-    private Float rate;
+    private BigDecimal rate;
+
 
     @Column(nullable = false, columnDefinition="VARCHAR(20)")
     private String title;// 테이블에는 없지만 필요할것 같아서 추가해줬다.
@@ -43,5 +44,18 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "store_id")
     private Store store;
 
+    public void setMember(User user){
+        if(this.user != null)
+            user.getReviewList().remove(this);
+        this.user = user;
+        user.getReviewList().add(this);
+    }
+
+    public void setStore(Store store){
+        if(this.store != null)
+            store.getReviewList().remove(this);
+        this.store = store;
+        store.getReviewList().add(this);
+    }
 
 }
