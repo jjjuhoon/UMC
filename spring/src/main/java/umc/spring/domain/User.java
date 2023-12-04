@@ -1,6 +1,8 @@
 package umc.spring.domain;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import umc.spring.domain.common.BaseEntity;
 import umc.spring.domain.enums.Sex;
 import umc.spring.domain.enums.UserStatus;
@@ -16,6 +18,8 @@ import java.util.List;
 
 @Entity
 @Getter
+@DynamicUpdate
+@DynamicInsert
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -34,8 +38,8 @@ public class User extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String name;
 
-//    @Column(nullable = false, length = 40) //specAddress는 어디다 사용하는거??
-//    private String specAddress;
+    @Column(nullable = false, length = 40) //specAddress는 어디다 사용하는거??
+    private String specAddress;
 
     @Enumerated(EnumType.STRING) //enum인 경우에만 사용.
     @Column(columnDefinition = "VARCHAR(10)")
