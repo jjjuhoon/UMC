@@ -25,6 +25,9 @@ public class Mission extends BaseEntity {
     private Integer reward;
 
     @Column(nullable = false, columnDefinition="TEXT")
+    private String title;
+
+    @Column(columnDefinition="TEXT")
     private String body;
 
     @Enumerated(EnumType.STRING)
@@ -39,4 +42,12 @@ public class Mission extends BaseEntity {
 
     @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
     private List<UserMission> userMissionList = new ArrayList<>();
+
+    public void setStore(Store store){
+        if(this.store != null)
+            store.getMissionList().remove(this);
+        this.store = store;
+        store.getMissionList().add(this);
+    }
 }
+
