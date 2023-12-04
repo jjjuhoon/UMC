@@ -20,7 +20,7 @@ public class Food extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 20)
+//    @Column(nullable = false, length = 20)
     //@Column(nullable = false, columnDefinition = "VARCHAR(20)")이랑 똑같음. 약간의 차이가 있긴함.
     private String name;
 
