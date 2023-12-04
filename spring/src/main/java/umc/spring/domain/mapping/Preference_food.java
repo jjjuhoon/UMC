@@ -25,4 +25,15 @@ public class Preference_food extends BaseEntity {
     @JoinColumn(name = "food_id")
     private Food food;
 
+    public void setUser(User user){
+        if(this.user != null)
+            user.getPreferencefoodList().remove(this);
+        this.user = user;
+        user.getPreferencefoodList().add(this);
+    }
+
+    public void setFoodCategory(Food food){
+        this.food = food;
+    }
+
 }
