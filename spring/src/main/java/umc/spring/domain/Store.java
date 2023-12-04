@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Data
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -23,7 +23,7 @@ public class Store extends BaseEntity {
     @Column(nullable = false, columnDefinition = "VARCHAR(50)")
     private String name;
 
-    @Column(nullable = false, columnDefinition = "DECIMAL(2,1) CHECK (rate >= 0.0 AND rate <= 5.0)")
+    @Column(nullable = true, columnDefinition = "DECIMAL(2,1) CHECK (rate >= 0.0 AND rate <= 5.0)")
     //0.0~5.0 사이에 float값 뽑아줌.
     private Float rate;
 
@@ -33,16 +33,19 @@ public class Store extends BaseEntity {
 
 
     @Column(nullable = false) // 영업시간을 표시해주기 위해 localtime을 썻다.(근데 이게 맞는지 잘 모르겠다)
-    private LocalTime time;
+    private String time;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String address;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String specAddress;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<Review> ReviewList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "region_id")
+    @JoinColumn(name = "regionId")
     private Region region;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
